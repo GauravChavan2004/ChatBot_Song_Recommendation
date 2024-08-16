@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ChatBot App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/static/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!--Jquery CDN link -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"></script>
+    {% load static %}
+  </head>
+  <body>
+    <h1 style="font-family: monospace:" class="text-center">ChatBot App</h1>
+    <div class="container1">
+      <div id="BotInput">
+        <p><span>Hii there. </span></p>
+      </div>
+    </div>
+    <!--Input Field -->
+    <div id="User_Input">
+      <input
+        type="text"
+        placeholder="Type message...."
+        id="textInput"
+        name="userMessage" />
+      <button type="submit" id="Submit_btn">
+        <i class="bi bi-send"></i>
+      </button>
+    </div>
+
+    <script>
+      function getUserResponse() {
+        var userText = $('#textInput').val();
+        var userHTML =
+          "<p class='userText'><b>User:</b> <span>" + userText + '</span/></p>';
+        $('#textInput').val('');
+        //To display message entered by user
+
+        $('#BotInput').append(userHTML);
+
+        //send user message data to Backend
+        $.get('/userResponse', { user_message: userText }).done(function (
+          data
+        ) {
+          //send the bot reply to user
+          var botReply =
+            "<p class='botText'>ChatBot: <span>" + data + '</span></p>';
+          $('#BotInput').append(process_input);
+        });
+      }
+      //when you click the button usertext diplay in BotInput container.
+      $('#Submit_btn').click(function () {
+        getUserResponse();
+      });
+    </script>
+  </body>
+</html>
