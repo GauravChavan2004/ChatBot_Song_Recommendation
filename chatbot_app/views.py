@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Conversation
-from .intent_data import intents
+from .intents import intents
 
 def home(request):
     return render(request,"index.html")
@@ -14,7 +14,7 @@ def home(request):
 nlp = spacy.load("en_core_web_sm")
 
 def process_input(request):
-    user_input = request.GET.get("userMessage")
+    user_input = request.GET.get("user_message")
     tokens = word_tokenize(user_input)
     doc = nlp(" ".join(tokens))
     intent = None
@@ -31,5 +31,4 @@ def process_input(request):
     else:
         response = "I didn't understand that. Please try again."
     Conversation.objects.create(user_input=user_input, response=response)
-    return HttpResponse({"response": response})
-    
+    return HttpResponse(response)
