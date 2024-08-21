@@ -21,7 +21,7 @@
     {% load static %}
   </head>
   <body>
-    <h1 style="font-family: monospace:" class="text-center">ChatBot App</h1>
+    <h1 style="text-align: center">ChatBot</h1>
     <div class="container1">
       <div id="BotInput">
         <p><span>Hii there. </span></p>
@@ -51,9 +51,7 @@
         $('#BotInput').append(userHTML);
 
         //send user message data to Backend
-        $.get('/process_input', { user_message: userText }).done(function (
-          data
-        ) {
+        $.get('/chat', { user_message: userText }).done(function (data) {
           //send the bot reply to user
           var botReply =
             "<p class='botText'>ChatBot: <span>" + data + '</span></p>';

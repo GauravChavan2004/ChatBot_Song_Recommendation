@@ -1,34 +1,32 @@
 import nltk
 nltk.download('punkt_tab')
-from nltk.tokenize import word_tokenize
-import spacy
-from django.http import JsonResponse
+nltk.download('wordnet')
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Conversation
 from .intents import intents
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+import random
+
+lemmatizer = WordNetLemmatizer()
 
 def home(request):
     return render(request,"index.html")
 
-nlp = spacy.load("en_core_web_sm")
+def chatbot_response(msg):
+    words = word_tokenize(msg)
+    words = [lemmatizer.lemmatize(word) for word in words]
+    for intent in intents['intents']:
+        for pattern in intent['patterns']:
+            tokenized_pattern = word_tokenize(pattern)
+            tokenized_pattern = [lemmatizer.lemmatize(word) for word in tokenized_pattern]
+            if all(word in words for word in tokenized_pattern):
+                return random.choice(intent['responses'])
+    return "I didn't understand that. Please try again."
 
-def process_input(request):
-    user_input = request.GET.get("user_message")
-    tokens = word_tokenize(user_input)
-    doc = nlp(" ".join(tokens))
-    intent = None
-    for entity in doc.ents:
-        for intent_data in intents["intents"]:
-            if entity.text.lower() in [pattern.lower() for pattern in intent_data["patterns"]]:
-                intent = intent_data["tag"]
-                break
-        if intent:
-            break
-    if intent:
-        response = next(intent_data["response"] for intent_data in intents["intents"] if intent_data["tag"] == intent)
-       
-    else:
-        response = "I didn't understand that. Please try again."
-    Conversation.objects.create(user_input=user_input, response=response)
+def chat(request):
+    msg = request.GET.get('user_message')
+    response = chatbot_response(msg)
+    Conversation.objects.create(user_input=msg, response=response)
     return HttpResponse(response)
