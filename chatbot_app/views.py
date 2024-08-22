@@ -27,6 +27,7 @@ def chatbot_response(msg):
 
 def chat(request):
     msg = request.GET.get('user_message')
-    response = chatbot_response(msg)
+    msg1=msg.lower()
+    response = chatbot_response(msg1)
     Conversation.objects.create(user_input=msg, response=response)
     return HttpResponse(response)
