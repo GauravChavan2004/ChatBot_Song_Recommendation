@@ -101,5 +101,9 @@
   {"tag": "your_thoughts",
    "patterns": ["What think about", "What your thoughts"],
    "responses": ["Thats certainly a very interesting topic to talk about", "I dont know much about it but I'm definetly interested in learning more"]
+  },
+  {"tag": "insult",
+  "patterns": ["you are dumb", "shut up","idiot"],
+  "responses": ["Well that hurts :("]
   }
 ]}
