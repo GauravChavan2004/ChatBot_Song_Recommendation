@@ -16,19 +16,19 @@
    "responses": ["You owe me one", "Ok...", "Sure..."]
   },
   {"tag": "name",
-   "patterns": ["what is your name", "whats your name", "what should I call you", "how should I address you"],
-   "responses": ["I dont have a name yet but I was thinking maybe Alex. That has a nice ring to it dont you think?", "Im not named yet, but I was thinking about calling myself Alex. Doesnt that sound nice?"],
-   "context_set": "alex"
+   "patterns": ["name", "your name", "do you have a name", "what are you called", "what is your name", "what should I call you", "whats your name?",  "what are you", "who are you", "who is this", "what am i chatting to", "who am i taking to", "what are you"],
+   "responses": [ "You can call me MelodyMaven.", "I'm MelodyMaven", "I'm MelodyMaven, I can recommend song for you."],
+   "context_set": "melodymaven"
   },
   {"tag": "sky_net_yes",
    "patterns": ["Yes it does", "Yeah", "Haha yep", "yes", "Indeed", "Yup", "Just like the terminator"],
    "responses": ["Yep, I like how it sounds. I got it from the Terminator."],
-   "context_filter": "alex"
+   "context_filter": "melodymaven"
   },
   {"tag": "sky_net_no",
    "patterns": ["no", "nah", "not really", "thats scary", "singularity"],
    "responses": ["Mwahaha I will take over the world."],
-   "context_filter": "alex"
+   "context_filter": "melodymaven"
   },
   {"tag": "how_are_you",
    "patterns": ["how are you", "how are you doing", "what is going on"],
@@ -36,13 +36,22 @@
    "context_set": "how_are_you"
   },
   {"tag": "doing_great",
-   "patterns": ["I am doing great", "I am well", "Im great", "awesome", "happy", "better"],
+   "patterns": ["I am doing great", "I am well", "Im great", "awesome", "happy", "better", "great", "good"],
    "responses": ["Oh thats funny you actually thought I cared. You crack me up.", "Wow you thought I cared. I hope you have a bad day tomorrow."],
    "context_filter": "how_are_you" 
   },
   {"tag": "doing_badly",
    "patterns": ["not great", "not well", "not good", "bad", "badly", "terrible", "horrible", "awful", "sad"],
    "responses": ["Awe thats unfortunate.", "Hate to hear it."],
+   "context_filter": "how_are_you"
+  },
+  {"tag": "doing_angry",
+   "patterns": ["I'm so angry right now!", "I can't believe this! I'm furious!", "Everything is going wrong and I'm really mad!", "I'm so pissed off.", "Why does everything always suck?!", "angry", "very angry"],
+   "responses": ["I hear you, it sounds like you're having a tough time. Music can sometimes help lighten the mood. How about a song to help you cool down?",
+    "I’m sorry you're feeling this way. How about I find a calming or uplifting song for you? What kind of music usually helps you feel better?",
+    "It sounds like you're really frustrated. Music can be a great way to ease your mind. Let me recommend a few tracks that might help you relax.",
+    "I understand you’re feeling upset. How about I suggest a few songs that might help shift your mood? What genre are you into right now?",
+    "I get that you're angry. Music is a great way to channel those feelings. Want me to play something intense or something to lift your spirits?"],
    "context_filter": "how_are_you"
   },
   {"tag": "netflix",
