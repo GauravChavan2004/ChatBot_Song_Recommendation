@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +10,7 @@
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="/static/index.css" />
+    <link rel="stylesheet" type="text/css" href="{% static '/index.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -18,26 +19,100 @@
       src="https://code.jquery.com/jquery-3.7.1.js"
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"></script>
-    {% load static %}
   </head>
+  <style>
+    body {
+      text-align: center;
+    }
+    #User_Input {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+    #textInput {
+      width: 50%;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      background-color: #f2f2f2;
+      font-size: 16px;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    #textInput:focus {
+      background-color: #fff;
+      box-shadow: 0 0 8px hsla(213, 5%, 66%, 0.677);
+      outline: none;
+    }
+    #Submit_btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #Submit_btn:hover {
+      background-color: #a4a8ad;
+      transform: translateY(-2px);
+    }
+
+    #Submit_btn:active {
+      background-color: #a4a8ad;
+      transform: translateY(0);
+    }
+
+    #Submit_btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px hsla(213, 5%, 66%, 0.677);
+    }
+    .userText {
+      text-align: right;
+    }
+    #BotInput {
+      text-align: left;
+    }
+    .container {
+      width: 50%;
+      margin-top: 50px;
+    }
+    @media only screen and (max-width: 450px) {
+      .container {
+        width: 90%;
+      }
+    }
+    @media (min-width: 450px) and (max-width: 786px) {
+      .container {
+        width: 65%;
+      }
+    }
+  </style>
   <body>
-    <h1 style="text-align: center">ChatBot</h1>
-    <div class="container1">
+    {% include "header.html" %}
+    <div class="container p-5">
       <div id="BotInput">
         <p><span>Hii there. </span></p>
         <p>{{data}}</p>
       </div>
     </div>
     <!--Input Field -->
-    <div id="User_Input">
-      <input
-        type="text"
-        placeholder="Type message...."
-        id="textInput"
-        name="userMessage" />
-      <button type="submit" id="Submit_btn">
-        <i class="bi bi-send"></i>
-      </button>
+    <div class="input-box fixed-bottom">
+      <div id="User_Input">
+        <input
+          type="search"
+          placeholder="Type message...."
+          id="textInput"
+          name="userMessage" />
+        <button type="submit" id="Submit_btn">
+          <i class="bi bi-send"></i>
+        </button>
+      </div>
     </div>
 
     <script>
@@ -54,13 +129,20 @@
         $.get('/chat', { user_message: userText }).done(function (data) {
           //send the bot reply to user
           var botReply =
-            "<p class='botText'>ChatBot: <span>" + data + '</span></p>';
+            "<p class='botText'><b>ChatBot:</b> <span>" + data + '</span></p>';
           $('#BotInput').append(botReply);
         });
       }
-      //when you click the button usertext diplay in BotInput container.
+      //when you click the button usertext go to the backend diplay in container.
       $('#Submit_btn').click(function () {
         getUserResponse();
+      });
+      //when you press the Enter key usertext go to the backend and display in container.
+      $('#textInput').keypress(function (e) {
+        key = e.which;
+        if (key == 13) {
+          getUserResponse();
+        }
       });
     </script>
   </body>
