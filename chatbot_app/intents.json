@@ -4,7 +4,7 @@
    "responses": ["hello peasant human", "hello lowly human", "how dare you address me like that"]
   },
   {"tag": "goodbye",
-   "patterns": ["bye", "cya", "see you later", "goodbye", "im leaving", "have a good day"],
+   "patterns": ["bye", "cya", "see you later", "goodbye", "im leaving", "have a good day","see you again"],
    "responses": ["i won't miss you", "i didn't like talking to you anyway", "thank god you're leaving"]
   },
   {"tag": "age",
@@ -13,7 +13,7 @@
   },
   {"tag": "thanks",
    "patterns": ["thanks", "thank you", "thankyou", "ty", "i owe you one"],
-   "responses": ["you owe me one", "ok...", "sure..."]
+   "responses": ["you owe me one", "ok...", "sure...","my pleasure..."]
   },
   {"tag": "name",
    "patterns": ["name", "your name", "do you have a name", "what are you called", "what is your name", "what should i call you", "whats your name?",  "what are you", "who are you", "who is this", "what am i chatting to", "who am i taking to", "what are you"],

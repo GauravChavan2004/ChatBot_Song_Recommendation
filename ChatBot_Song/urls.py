@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home), 
     path("chat/", views.chat),
-
+    path("get_song/", views.get_song_suggestions, name="get_song"),
 ]
 
 
