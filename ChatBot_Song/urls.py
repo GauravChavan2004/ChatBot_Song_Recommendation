@@ -20,11 +20,15 @@ from chatbot_app import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home), 
     path("chat/", views.chat),
-    path("get_song/", views.get_song_suggestions, name="get_song"),
+    path("get_song/", views.get_song_suggestions),
+    path('login/', views.login, name='login'),
+    path('callback/', views.callback, name='callback'),
+    path('suggest/', views.suggest_songs, name='suggest_songs'),
 ]
 
 

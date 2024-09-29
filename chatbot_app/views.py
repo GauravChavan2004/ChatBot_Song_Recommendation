@@ -11,6 +11,10 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 import random
 import text2emotion
+import requests
+
+from django.http import JsonResponse
+
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -64,6 +68,8 @@ def get_song_suggestions(request):
         results = sp.search(q='sad', type='track')
     elif emotion == 'angry':
         results = sp.search(q='angry', type='track')
+    else:
+        results = sp.search(q='happy', type='track')
     # ...
 
     # Return the song suggestions
@@ -78,3 +84,41 @@ def chat(request):
     Conversation.objects.create(user_input=msg, response=response)
     return HttpResponse(response)
 
+CLIENT_ID = '5f23245341574c4f8197d92d339cb2e7'
+CLIENT_SECRET = 'ca3bf1d79a8f48b9be4a50574c18adb8'
+REDIRECT_URI = 'http://localhost:8000/callback'
+
+def login(request):
+    scope = 'user-read-private user-read-email'
+    auth_url = f"https://accounts.spotify.com/authorize?response_type=code&client_id={CLIENT_ID}&redirect_uri={REDIRECT_URI}&scope={scope}"
+    return redirect(auth_url)
+
+def callback(request):
+    code = request.GET.get('code')
+    token_url = 'https://accounts.spotify.com/api/token'
+    response = requests.post(token_url, data={
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': REDIRECT_URI,
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+    })
+    token_info = response.json()
+    access_token = token_info['access_token']
+    return redirect(f'/suggest/?access_token={access_token}')
+
+def suggest_songs(request):
+    access_token = request.GET.get('access_token')
+    emotion = request.GET.get('emotion', 'happy')  # Default emotion
+
+    search_url = f'https://api.spotify.com/v1/search?q={emotion}&type=track&limit=10'
+    response = requests.get(search_url, headers={
+        'Authorization': f'Bearer {access_token}'
+    })
+
+    if response.status_code == 200:
+        songs = response.json().get('tracks', {}).get('items', [])
+        song_list = [{'name': song['name'], 'artist': song['artists'][0]['name'], 'url': song['external_urls']['spotify']} for song in songs]
+        return render(request, 'suggestions.html', {'songs': song_list})
+    else:
+        return JsonResponse({'error': 'Failed to fetch songs'}, status=response.status_code)
