@@ -25,7 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home), 
     path("chat/", views.chat),
-    path("get_song/", views.get_song_suggestions),
     path('login/', views.login, name='login'),
     path('callback/', views.callback, name='callback'),
     path('suggest/', views.suggest_songs, name='suggest_songs'),

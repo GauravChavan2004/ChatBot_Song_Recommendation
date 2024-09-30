@@ -6,17 +6,14 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 from .models import Conversation
+from .models import Emotion
 from .intents import intents
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 import random
 import text2emotion
 import requests
-
 from django.http import JsonResponse
-
-
-import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 lemmatizer = WordNetLemmatizer()
@@ -49,40 +46,16 @@ def analyze_emotion(msg):
     max_emotion = max(emotions, key=emotions.get)
     return emotion_labels[max_emotion]
 
-def get_song_suggestions(request):
-    msg = request.GET.get('user_message')
-    emotion=analyze_emotion(msg)
-    # Replace these with your own client ID and client secret
-    client_id = '5f23245341574c4f8197d92d339cb2e7'
-    client_secret = 'ca3bf1d79a8f48b9be4a50574c18adb8'
-    redirect_uri = 'http://localhost:8000/callback'
-
-    # Authenticate with the Spotify API
-    scope = 'user-library-read'
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
-
-    # Retrieve song suggestions based on the user's emotions
-    if emotion == 'happy':
-        results = sp.search(q='happy', type='track')
-    elif emotion == 'sad':
-        results = sp.search(q='sad', type='track')
-    elif emotion == 'angry':
-        results = sp.search(q='angry', type='track')
-    else:
-        results = sp.search(q='happy', type='track')
-    # ...
-
-    # Return the song suggestions
-    track_id = results['tracks']['items'][0]['id']
-    return redirect(f'https://open.spotify.com/track/{track_id}')
-
 
 def chat(request):
     msg = request.GET.get('user_message')
     msg1=msg.lower()
     response = chatbot_response(msg1)
-    Conversation.objects.create(user_input=msg, response=response)
+    emotion2 = analyze_emotion(msg)
+    Emotion.objects.create(emotion=emotion2)
+    Conversation.objects.create(user_input=msg, response=response) 
     return HttpResponse(response)
+
 
 CLIENT_ID = '5f23245341574c4f8197d92d339cb2e7'
 CLIENT_SECRET = 'ca3bf1d79a8f48b9be4a50574c18adb8'
@@ -105,13 +78,12 @@ def callback(request):
     })
     token_info = response.json()
     access_token = token_info['access_token']
-    return redirect(f'/suggest/?access_token={access_token}')
+    return redirect(f'/suggest/?access_token1={access_token}')
 
 def suggest_songs(request):
-    access_token = request.GET.get('access_token')
-    emotion = request.GET.get('emotion', 'happy')  # Default emotion
-
-    search_url = f'https://api.spotify.com/v1/search?q={emotion}&type=track&limit=10'
+    access_token = request.GET.get('access_token1')
+    emotion2 = Emotion.objects.latest('id').emotion
+    search_url = f'https://api.spotify.com/v1/search?q={emotion2}&type=track&limit=10'
     response = requests.get(search_url, headers={
         'Authorization': f'Bearer {access_token}'
     })
