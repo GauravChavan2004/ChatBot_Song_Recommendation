@@ -112,7 +112,18 @@
         <button type="submit" id="Submit_btn">
           <i class="bi bi-send"></i>
         </button>
-        <button><a href="/get_song">Click</a></button>
+        <button><a href="{% url 'login' %}">Click</a></button>
+        <input
+          type="search"
+          placeholder="Type emotion..."
+          id="textInput1"
+          required />
+        <button
+          type="button"
+          onclick="redirectToSpotify()"
+          aria-label="Get Songs on Spotify">
+          Get Songs on Spotify
+        </button>
       </div>
     </div>
 
@@ -130,7 +141,9 @@
         $.get('/chat', { user_message: userText }).done(function (data) {
           //send the bot reply to user
           var botReply =
-            "<p class='botText'><b>ChatBot:</b> <span>" + data + '</span></p>';
+            "<p class='botText'><b>ChatBot:</b> <span>" +
+            data.response +
+            '</span></p>';
           $('#BotInput').append(botReply);
         });
       }
@@ -145,6 +158,17 @@
           getUserResponse();
         }
       });
+      function redirectToSpotify() {
+        var emotion = $('emotion').value;
+        if (emotion) {
+          const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(
+            emotion
+          )}%20songs`;
+          window.open(spotifyUrl, '_blank'); // Open in a new tab
+        } else {
+          alert('Please enter an emotion!');
+        }
+      }
     </script>
   </body>
 </html>

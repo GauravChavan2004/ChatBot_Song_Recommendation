@@ -20,7 +20,7 @@ lemmatizer = WordNetLemmatizer()
 
 
 def home(request):
-    return render(request,"index.html")
+    return render(request,"index.html",{})
 
 def chatbot_response(msg):
     words = word_tokenize(msg)
@@ -54,7 +54,7 @@ def chat(request):
     emotion2 = analyze_emotion(msg)
     Emotion.objects.create(emotion=emotion2)
     Conversation.objects.create(user_input=msg, response=response) 
-    return HttpResponse(response)
+    return JsonResponse({'emotion': emotion2, 'response':response})
 
 
 CLIENT_ID = '5f23245341574c4f8197d92d339cb2e7'
@@ -68,6 +68,9 @@ def login(request):
 
 def callback(request):
     code = request.GET.get('code')
+    if not code:
+        return JsonResponse({'error': 'Authorization code not provided'}, status=400)
+
     token_url = 'https://accounts.spotify.com/api/token'
     response = requests.post(token_url, data={
         'grant_type': 'authorization_code',
@@ -76,21 +79,15 @@ def callback(request):
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET
     })
+
+    if response.status_code != 200:
+        return JsonResponse({'error': 'Failed to retrieve access token'}, status=response.status_code)
+
     token_info = response.json()
-    access_token = token_info['access_token']
-    return redirect(f'/suggest/?access_token1={access_token}')
+    access_token = token_info.get('access_token')
+    if not access_token:
+        return JsonResponse({'error': 'Access token not found'}, status=500)
 
-def suggest_songs(request):
-    access_token = request.GET.get('access_token1')
-    emotion2 = Emotion.objects.latest('id').emotion
-    search_url = f'https://api.spotify.com/v1/search?q={emotion2}&type=track&limit=10'
-    response = requests.get(search_url, headers={
-        'Authorization': f'Bearer {access_token}'
-    })
-
-    if response.status_code == 200:
-        songs = response.json().get('tracks', {}).get('items', [])
-        song_list = [{'name': song['name'], 'artist': song['artists'][0]['name'], 'url': song['external_urls']['spotify']} for song in songs]
-        return render(request, 'suggestions.html', {'songs': song_list})
-    else:
-        return JsonResponse({'error': 'Failed to fetch songs'}, status=response.status_code)
+    # Store the access token in the session if needed
+    request.session['access_token'] = access_token
+    return redirect('index')  # Redirect to the index page after login
