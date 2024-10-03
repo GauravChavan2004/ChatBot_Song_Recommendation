@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'ChatBot_Song.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # Use MySQL as the database engine
+        'NAME': 'chatbot_song',          # The name of your MySQL database
+        'USER': 'root',         # Your MySQL username
+        'PASSWORD': 'root',     # Your MySQL password
+        'HOST': 'localhost',                   # The hostname of the database server (usually 'localhost')
+        'PORT': '3306',                        # The port of the MySQL database (default is 3306)
     }
 }
 

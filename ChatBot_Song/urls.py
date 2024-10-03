@@ -27,6 +27,7 @@ urlpatterns = [
     path("chat/", views.chat),
     path('login/', views.login, name='login'),
     path('callback/', views.callback, name='callback'),
+    path('analyze_emotion/',views.analyze_emotion,name='analyze_emotion'),
 ]
 
 

@@ -72,6 +72,33 @@
       outline: none;
       box-shadow: 0 0 0 2px hsla(213, 5%, 66%, 0.677);
     }
+    #redirectToSpotify {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background-color: #ffffff;
+      color: #525252;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #redirectToSpotify:hover {
+      background-color: #a4a8ad;
+      transform: translateY(-2px);
+    }
+
+    #redirectToSpotify:active {
+      background-color: #a4a8ad;
+      transform: translateY(0);
+    }
+
+    #redirectToSpotify:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px hsla(213, 5%, 66%, 0.677);
+    }
     .userText {
       text-align: right;
     }
@@ -99,6 +126,7 @@
       <div id="BotInput">
         <p><span>Hii there. </span></p>
         <p>{{data}}</p>
+        <h1>{{data.emotion}}</h1>
       </div>
     </div>
     <!--Input Field -->
@@ -112,21 +140,9 @@
         <button type="submit" id="Submit_btn">
           <i class="bi bi-send"></i>
         </button>
-        <button><a href="{% url 'login' %}">Click</a></button>
-        <input
-          type="search"
-          placeholder="Type emotion..."
-          id="textInput1"
-          required />
-        <button
-          type="button"
-          onclick="redirectToSpotify()"
-          aria-label="Get Songs on Spotify">
-          Get Songs on Spotify
-        </button>
+        <button id="redirectToSpotify">Suggest Song</button>
       </div>
     </div>
-
     <script>
       function getUserResponse() {
         var userText = $('#textInput').val();
@@ -158,17 +174,21 @@
           getUserResponse();
         }
       });
-      function redirectToSpotify() {
-        var emotion = $('emotion').value;
-        if (emotion) {
-          const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(
-            emotion
-          )}%20songs`;
-          window.open(spotifyUrl, '_blank'); // Open in a new tab
-        } else {
-          alert('Please enter an emotion!');
-        }
-      }
+      //when you press the get Song button the emotion is analyze and this emotion get from the backend and suggest the song and redirect to spotify page
+      $('#redirectToSpotify').on('click', function () {
+        $.get('/analyze_emotion').done(function (data) {
+          +3;
+          const emotion = data.emotion;
+          if (emotion) {
+            const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(
+              emotion
+            )}%20songs`;
+            window.open(spotifyUrl, '_blank'); // Open in a new tab
+          } else {
+            alert('Please enter an emotion!');
+          }
+        });
+      });
     </script>
   </body>
 </html>
