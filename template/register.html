@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <!-- Add Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+      body {
+        background-color: #f7f7f7;
+      }
+      .register-container {
+        margin-top: 10%;
+        max-width: 500px;
+      }
+      .register-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container register-container">
+      <h2>Register</h2>
+      <form method="POST">
+        {% csrf_token %} {{ form.non_field_errors }}
+        <div class="form-group">
+          {{ form.username.label_tag }} {{ form.username }}
+        </div>
+        <div class="form-group">
+          {{ form.email.label_tag }} {{ form.email }}
+        </div>
+        <div class="form-group">
+          {{ form.password1.label_tag }} {{ form.password1 }}
+        </div>
+        <div class="form-group">
+          {{ form.password2.label_tag }} {{ form.password2 }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          Register
+        </button>
+      </form>
+      <p class="text-center mt-3">
+        <a href="{% url 'login' %}">Already have an account? Login</a>
+      </p>
+    </div>
+  </body>
+</html>
