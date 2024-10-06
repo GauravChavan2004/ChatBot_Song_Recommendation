@@ -108,6 +108,12 @@
     .container {
       width: 50%;
       margin-top: 50px;
+      height: 610px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .container::-webkit-scrollbar {
+      display: none;
     }
     @media only screen and (max-width: 450px) {
       .container {
@@ -121,12 +127,27 @@
     }
   </style>
   <body>
-    {% include "header.html" %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <script defer>
+        alert('{{message}}');
+      </script>
+
+      {% endfor %}
+    </ul>
+    {% endif %} {% if messages %}
+    <!-- Hidden element to store the message -->
+    <ul class="list-unstyled d-none">
+      {% for message in messages %}
+      <li class="django-message" data-message="{{ message }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% include "header.html" %}
     <div class="container p-5">
       <div id="BotInput">
         <p><span>Hii there. </span></p>
         <p>{{data}}</p>
-        <h1>{{data.emotion}}</h1>
       </div>
     </div>
     <!--Input Field -->
@@ -177,7 +198,6 @@
       //when you press the get Song button the emotion is analyze and this emotion get from the backend and suggest the song and redirect to spotify page
       $('#redirectToSpotify').on('click', function () {
         $.get('/analyze_emotion').done(function (data) {
-          +3;
           const emotion = data.emotion;
           if (emotion) {
             const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(

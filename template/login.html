@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <!-- Add Bootstrap -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login Page</title>
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <style>
-      body {
-        background-color: #f7f7f7;
-      }
-      .login-container {
-        margin-top: 10%;
-        max-width: 400px;
-      }
-      .login-container h2 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-    </style>
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous" />
   </head>
+  <style>
+    body {
+      background-color: #f7f7f7;
+    }
+    .login-container {
+      margin-top: 10%;
+      max-width: 400px;
+    }
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
   <body>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <script defer>
+        alert('{{message}}');
+      </script>
+
+      {% endfor %}
+    </ul>
+    {% endif %} {% if messages %}
+    <!-- Hidden element to store the message -->
+    <ul class="list-unstyled d-none">
+      {% for message in messages %}
+      <li class="django-message" data-message="{{ message }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     <div class="container login-container">
       <h2>Login</h2>
       <form method="POST">
-        {% csrf_token %} {{ form.non_field_errors }}
-        <div class="form-group">
-          {{ form.username.label_tag }} {{ form.username }}
-        </div>
-        <div class="form-group">
-          {{ form.password.label_tag }} {{ form.password }}
-        </div>
+        {% csrf_token %}
+        <label for="Username">Username: </label>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          name="username"
+          id="email"
+          required />
+        <label for="psw">Password: </label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          id="psw"
+          required />
         <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <p class="text-center mt-3">
+          Don't have an account?
+          <a href="{% url 'user_register' %}"> Register</a>
+        </p>
       </form>
-      <p class="text-center mt-3">
-        <a href="{% url 'register' %}">Don't have an account? Register</a>
-      </p>
     </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
   </body>
 </html>

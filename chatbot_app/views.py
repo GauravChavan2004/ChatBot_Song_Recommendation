@@ -46,7 +46,7 @@ def chat(request):
     msg = request.GET.get('user_message')
     msg1=msg.lower()
     response = chatbot_response(msg1)
-    Conversation.objects.create(user_input=msg, response=response) 
+    Conversation.objects.create(user=request.user, user_input=msg, response=response) 
     return JsonResponse({'response':response})
 
 def analyze_emotion(request):
