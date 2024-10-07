@@ -20,7 +20,11 @@ from spotipy.oauth2 import SpotifyOAuth
 lemmatizer = WordNetLemmatizer()
 
 def home(request):
-    return render(request,"index.html",{})
+    # Check if the user is authenticated
+    context = {
+        'is_logged_in': request.user.is_authenticated
+    }
+    return render(request,"index.html", context)  
 
 def chatbot_response(msg):
     words = word_tokenize(msg)

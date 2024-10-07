@@ -140,3 +140,6 @@ MEDIA_URL = '/media/'
 # Path where media is stored'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
+LOGIN_URL = '/users/user_login/'
+LOGIN_REDIRECT_URL = '/'

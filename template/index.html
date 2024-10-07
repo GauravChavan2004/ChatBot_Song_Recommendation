@@ -115,9 +115,52 @@
     .container::-webkit-scrollbar {
       display: none;
     }
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      width: 25%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal-content button:hover {
+      background-color: #0056b3;
+    }
     @media only screen and (max-width: 450px) {
       .container {
         width: 95%;
+        height: 500px;
+        font-size: 12px;
+      }
+      #textInput {
+        width: 60%;
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+      #Submit_btn {
+        font-size: 12px;
+        padding: 10px;
+      }
+      #redirectToSpotify {
+        font-size: 12px;
       }
     }
     @media (min-width: 450px) and (max-width: 786px) {
@@ -143,7 +186,17 @@
       <li class="django-message" data-message="{{ message }}">{{ message }}</li>
       {% endfor %}
     </ul>
-    {% endif %} {% include "header.html" %}
+    {% endif %}
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <h4>Welcome back</h4>
+        <p>You need to log in or sign up to get smarter responses and more.</p>
+        <button id="loginButton">Log In</button><br />
+        <button id="signupButton">Create account</button>
+      </div>
+    </div>
+
+    {% include "header.html" %}
     <div class="container p-5">
       <div id="BotInput">
         <p><span>Hii there. </span></p>
@@ -165,50 +218,69 @@
       </div>
     </div>
     <script>
-      function getUserResponse() {
-        var userText = $('#textInput').val();
-        var userHTML =
-          "<p class='userText'><b>User:</b> <span>" + userText + '</span/></p>';
-        $('#textInput').val('');
-        //To display message entered by user
+        function getUserResponse() {
+          var userText = $('#textInput').val();
+          var userHTML =
+            "<p class='userText'><b>User:</b> <span>" + userText + '</span/></p>';
+          $('#textInput').val('');
+          //To display message entered by user
 
-        $('#BotInput').append(userHTML);
+          $('#BotInput').append(userHTML);
 
-        //send user message data to Backend
-        $.get('/chat', { user_message: userText }).done(function (data) {
-          //send the bot reply to user
-          var botReply =
-            "<p class='botText'><b>ChatBot:</b> <span>" +
-            data.response +
-            '</span></p>';
-          $('#BotInput').append(botReply);
-        });
-      }
-      //when you click the button usertext go to the backend diplay in container.
-      $('#Submit_btn').click(function () {
-        getUserResponse();
-      });
-      //when you press the Enter key usertext go to the backend and display in container.
-      $('#textInput').keypress(function (e) {
-        key = e.which;
-        if (key == 13) {
-          getUserResponse();
+          //send user message data to Backend
+          $.get('/chat', { user_message: userText }).done(function (data) {
+            //send the bot reply to user
+            var botReply =
+              "<p class='botText'><b>ChatBot:</b> <span>" +
+              data.response +
+              '</span></p>';
+            $('#BotInput').append(botReply);
+          });
         }
-      });
-      //when you press the get Song button the emotion is analyze and this emotion get from the backend and suggest the song and redirect to spotify page
-      $('#redirectToSpotify').on('click', function () {
-        $.get('/analyze_emotion').done(function (data) {
-          const emotion = data.emotion;
-          if (emotion) {
-            const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(
-              emotion
-            )}%20songs`;
-            window.open(spotifyUrl, '_blank'); // Open in a new tab
-          } else {
-            alert('Please enter an emotion!');
+        //when you click the button usertext go to the backend diplay in container.
+        $('#Submit_btn').click(function () {
+          getUserResponse();
+        });
+        //when you press the Enter key usertext go to the backend and display in container.
+        $('#textInput').keypress(function (e) {
+          key = e.which;
+          if (key == 13) {
+            getUserResponse();
           }
         });
-      });
+        //when you press the get Song button the emotion is analyze and this emotion get from the backend and suggest the song and redirect to spotify page
+        $('#redirectToSpotify').on('click', function () {
+          $.get('/analyze_emotion').done(function (data) {
+            +3;
+            const emotion = data.emotion;
+            if (emotion) {
+              const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(
+                emotion
+              )}%20songs`;
+              window.open(spotifyUrl, '_blank'); // Open in a new tab
+            } else {
+              alert('Please enter an emotion!');
+            }
+          });
+        });
+        window.onload = function() {
+          var isLoggedIn = {{ is_logged_in|yesno:"true,false" }};
+
+          if (!isLoggedIn) {
+              var modal = document.getElementById("loginModal");
+              modal.style.display = "flex"; // Show the modal
+
+              // Redirect to login page when the button is clicked
+              var loginButton = document.getElementById("loginButton");
+              loginButton.onclick = function() {
+                  window.location.href = "{% url 'user_login' %}";
+              };
+              var signupButton = document.getElementById("signupButton");
+              signupButton.onclick = function() {
+                  window.location.href = "{% url 'user_register' %}";
+              };
+          }
+      };
     </script>
   </body>
 </html>
