@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
-@login_required
+#@login_required
 def user_register(request):
     if request.method=='POST':
         first_name=request.POST['first_name']

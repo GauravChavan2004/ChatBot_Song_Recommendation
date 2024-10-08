@@ -9,18 +9,151 @@
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   </head>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
     body {
-      background-color: #f7f7f7;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('/static/images/login_page_bg.jpg');
+      background-size: cover; /* Ensure the background covers the whole page */
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .login-container {
-      margin-top: 10%;
-      max-width: 400px;
+    .container {
+      position: relative;
+      max-width: 25%;
+      width: 100%;
+      background: #03000061;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(250, 250, 250, 0.23);
+      overflow: hidden;
+      margin: 0 20px;
     }
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
+    .container .forms {
+      display: flex;
+      align-items: center;
+      height: 440px;
+      width: 200%;
+      transition: height 0.2s ease;
+    }
+    .container .form {
+      width: 50%;
+      padding: 30px;
+
+      transition: margin-left 0.18s ease;
+    }
+    .container.active .login {
+      margin-left: -50%;
+      opacity: 0;
+      transition: margin-left 0.18s ease, opacity 0.15s ease;
+    }
+    .container.active .forms {
+      height: 600px;
+    }
+    .container .form .title {
+      position: relative;
+      font-size: 27px;
+      font-weight: 600;
+      color: #ffffffbe;
+    }
+    .form .title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 30px;
+      background-color: #4070f4;
+      border-radius: 25px;
+    }
+    .form .input-field {
+      position: relative;
+      height: 50px;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .input-field input {
+      background-color: #ffffff00;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      padding: 0 35px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      border-bottom: 2px solid #ffffffbe;
+      border-top: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .input-field input::placeholder {
+      color: #ffffffbe;
+    }
+    .input-field input:is(:focus, :valid) {
+      border-bottom-color: #fffffffb;
+      color: #ffffffbe;
+    }
+    .input-field i {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ffffffbe;
+      font-size: 23px;
+      transition: all 0.2s ease;
+    }
+    .input-field input:is(:focus, :valid) ~ i {
+      color: #fffffffb;
+    }
+    .form .checkbox-text {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .checkbox-text .checkbox-content {
+      display: flex;
+      align-items: center;
+    }
+    .checkbox-content input {
+      margin-right: 10px;
+      accent-color: #4070f4;
+    }
+    .form .text {
+      color: #ffffffbe;
+      font-size: 14px;
+    }
+    .form a.text {
+      color: #4070f4;
+      text-decoration: none;
+    }
+    .form .button {
+      margin-top: 20px;
+    }
+    .form .button .input {
+      border: none;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      border-radius: 6px;
+      background-color: #4070f48e;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    .button input:hover {
+      background-color: #265df2;
     }
   </style>
   <body>
@@ -41,34 +174,66 @@
       {% endfor %}
     </ul>
     {% endif %}
-    <div class="container login-container">
-      <h2>Login</h2>
-      <form method="POST">
-        {% csrf_token %}
-        <label for="Username">Username: </label>
-        <input
-          type="text"
-          placeholder="Enter Username"
-          name="username"
-          id="email"
-          required />
-        <label for="psw">Password: </label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="password"
-          id="psw"
-          required />
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-        <p class="text-center mt-3">
-          Don't have an account?
-          <a href="{% url 'user_register' %}"> Register</a>
-        </p>
-      </form>
+    <div class="container">
+      <div class="forms">
+        <div class="form login">
+          <span class="title">Login</span>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="input-field">
+              <input
+                type="text"
+                placeholder="Enter Username"
+                name="username"
+                id="email"
+                required />
+              <i class="bi bi-person-circle"></i>
+            </div>
+            <div class="input-field">
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                id="psw"
+                required />
+              <i class="bi bi-person-fill-lock"></i>
+            </div>
+            <div class="checkbox-text">
+              <div class="checkbox-content">
+                <input type="checkbox" onclick="myFunction()" />
+                <label for="logCheck" class="text">Show Password</label>
+              </div>
+            </div>
+            <div class="input-field button">
+              <button type="submit" id="login-btn" class="input">
+                Login Now
+              </button>
+            </div>
+            <p class="text-center mt-3" style="color: #ffffffbe">
+              Don't have an account?
+              <a
+                href="{% url 'user_register' %}"
+                style="text-decoration: none; color: #7594e9">
+                Register</a
+              >
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
+    <script>
+      function myFunction() {
+        var x = document.getElementById('psw');
+        if (x.type === 'password') {
+          x.type = 'text';
+        } else {
+          x.type = 'password';
+        }
+      }
+    </script>
   </body>
 </html>
