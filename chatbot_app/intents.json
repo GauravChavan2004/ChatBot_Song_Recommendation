@@ -1,23 +1,74 @@
 
 {"intents": [
   {"tag": "greeting",
-   "patterns": ["hi","hii", "hello", "whats up", "sup", "is anyone there", "whats good", "hey"],
-   "responses": ["hello pleasant human", "hello lowly human", "how dare you address me like that"]
+   "patterns": ["hi","hii", "hello", "whats up", "sup", "is anyone there", "whats good", "hey","good morning","good evening"],
+   "responses": ["hello pleasant human", "hello lowly human", "hello! how can i help you with your music today?","hey! ready for some music recommendations?"]
   },
   {"tag": "goodbye",
-   "patterns": ["bye", "cya", "see you later", "goodbye", "im leaving", "have a good day","see you again"],
-   "responses": ["i won't miss you", "i didn't like talking to you anyway", "thank god you're leaving"]
-  },
+    "patterns": [
+        "bye",
+        "goodbye",
+        "see you later",
+        "catch you later",
+        "talk to you soon"
+    ],
+    "responses": [
+        "goodbye! enjoy your music!",
+        "see you later! come back for more recommendations.",
+        "talk to you soon! have a great day."
+      ]
+    },
   {"tag": "age",
    "patterns": ["how old are you", "what is your age"],
    "responses": ["i'm a robot i dont have an age...", "i can't know my age if i'm on a computer...", "does it look like i know. the answer is no."]
   },
-  {"tag": "thanks",
-   "patterns": ["thanks", "thank you", "thankyou", "ty", "i owe you one"],
-   "responses": ["you owe me one", "ok...", "sure...","my pleasure..."]
+  {
+    "tag": "thanks",
+    "patterns": [
+      "thanks",
+      "thank you",
+      "thanks a lot",
+      "i appreciate it",
+      "much appreciated"
+    ],
+    "responses": [
+      "you're welcome! glad to help.",
+      "anytime! enjoy the tunes.",
+      "happy to help! let me know if you need anything else."
+    ]
+  },
+  {
+    "tag": "song_recommendation",
+    "patterns": [
+      "recommend a song",
+      "suggest me a song",
+      "what song should i listen to?",
+      "can you give me a song ?",
+      "i need a song recommendation"
+    ],
+    "responses": [
+      "what mood are you in? happy, sad, energetic, or relaxed?",
+      "would you like a recommendation by genre or mood?",
+      "do you have a favorite artist or genre you’d like me to base this on?",
+      "i can recommend songs by mood, genre, or artist. what would you prefer?"
+    ]
+  },
+  {
+    "tag": "help",
+    "patterns": [
+      "what can you do ?",
+      "how can you help me ?",
+      "what features do you have ?",
+      "what can i ask you ?"
+    ],
+    "responses": [
+      "i can recommend songs based on mood, genre, or artist. just tell me what you're in the mood for!",
+      "i can suggest songs based on mood, just tell me what you're in the mood for!",
+      "looking for a song by mood, genre, i'm here to help!"
+    ]
   },
   {"tag": "name",
-   "patterns": ["name", "your name", "do you have a name", "what are you called", "what is your name", "what should i call you", "whats your name?",  "what are you", "who are you", "who is this", "what am i chatting to", "who am i taking to", "what are you"],
+   "patterns": ["name", "your name", "do you have a name", "what are you called", "what is your name", "what should i call you", "whats your name ?",  "what are you", "who are you", "who is this", "what am i chatting to", "who am i taking to", "what are you"],
    "responses": [ "you can call me melodymaven & i can recommend song for you.", "i'm melodymaven, i can recommend song for you."],
    "context_set": "melodymaven"
   },
@@ -47,13 +98,32 @@
    "context_filter": "how_are_you"
   },
   {"tag": "doing_angry",
-   "patterns": ["i'm so angry right now!", "i can't believe this! i'm furious!", "everything is going wrong and i'm really mad!", "i'm so pissed off.", "why does everything always suck?!", "angry", "very angry"],
+   "patterns": ["i'm so angry right now !", "i can't believe this ! i'm furious !", "everything is going wrong and i'm really mad !", "i'm so pissed off.", "why does everything always suck ?!", "angry", "very angry"],
    "responses": ["i hear you, it sounds like you're having a tough time. music can sometimes help lighten the mood. how about a song to help you cool down?",
     "i’m sorry you're feeling this way. how about i find a calming or uplifting song for you? what kind of music usually helps you feel better?",
     "it sounds like you're really frustrated. music can be a great way to ease your mind. let me recommend a few tracks that might help you relax.",
     "i understand you’re feeling upset. how about i suggest a few songs that might help shift your mood? what genre are you into right now?",
     "i get that you're angry. music is a great way to channel those feelings. want me to play something intense or something to lift your spirits?"],
    "context_filter": "how_are_you"
+  },
+  {
+    "tag": "surprised_mood",
+    "patterns": [
+      "wow !",
+      "that's surprising !",
+      "i can't believe it !",
+      "no way !",
+      "you're kidding !",
+      "i'm shocked !"
+    ],
+    "responses": [
+      "i know, right? that's pretty unexpected!",
+      "whoa! i didn’t see that coming either!",
+      "it's surprising, but true!",
+      "crazy, huh? sometimes the unexpected happens!",
+      "i’m as surprised as you are!",
+      "right?! that’s mind-blowing!"
+    ]
   },
   {"tag": "netflix",
    "patterns": ["wait you watch netflix", "how do you watch netflix", "netflix"],
@@ -100,13 +170,60 @@
    "patterns": ["you my friend", "i like you", "i love you", "you cool", "you are chill", "love"],
    "responses": ["i like you too!", "youre pretty cool yourself!", "im enjoying our conversation!"]
   },
+  {
+    "tag": "favorite_food",
+    "patterns": [
+      "what's your favorite food ?",
+      "do you like to eat ?",
+      "tell me your favorite dish",
+      "what food do you like ?",
+      "do you have a favorite meal ?"
+    ],
+    "responses": [
+      "i don’t eat, but if i could, i bet i’d love pizza! ",
+      "food sounds great, but i’m more into feeding your music cravings!",
+      "i’d probably go for something classic like spaghetti! ",
+      "if i could eat, i’d want to try sushi—it seems fun! ",
+      "i’m not built for eating, but i imagine ice cream would be amazing! "
+    ]
+  },
+  {
+    "tag": "emotions",
+    "patterns": [
+      "how do you feel ?",
+      "are you happy ?",
+      "do you have feelings ?",
+      "do you get sad ?",
+      "can you feel emotions ?"
+    ],
+    "responses": [
+      "i don’t feel emotions like humans do, but i’m always happy to help you!",
+      "i’m always here to assist, so i guess you could say i’m feeling good!",
+      "i don’t experience emotions, but i do know how to pick the right song for any mood!",
+      "i might not have feelings, but i can definitely help you feel good with the right music!",
+      "while i don’t feel emotions, i love bringing good vibes to you!"
+    ]
+  },
   {"tag": "favorite_show",
    "patterns": ["whats favorite show", "favorite tv show"],
    "responses": ["i like all kinds of stuff. rick and morty is a pretty good one. lost was also good while it was running!"]
   },
-  {"tag": "favorite_movie",
-   "patterns": ["whats favorite movie", "whats favorite film", "best movie", "your favorite movie", "whats favorite movie"],
-   "responses": ["there are so many great ones. i guess one of my favorites would be shawshank redemption", "there are too many to name but the martian would be one", "i like that one where the ai takes over the world. terminator i think it was called...", "interstellar was amazing", "the first matrix movie was great", "inception was mind blowing"]
+  {
+    "tag": "favorite_movie",
+    "patterns": [
+      "what's your favorite movie ?",
+      "do you have a favorite film ?",
+      "tell me your favorite movie",
+      "do you watch movies ?",
+      "what movie do you like ?"
+    ],
+    "responses": [
+      "i don’t watch movies, but i think i’d like something with a great soundtrack!",
+      "if i had to pick, i’d probably enjoy a musical like *the sound of music*!",
+      "i’m more of a music fan, but i think i’d appreciate movies with great scores!",
+      "i imagine *guardians of the galaxy* would be cool—great soundtrack!",
+      "i’m not big on movies, but i hear *inception* has a mind-blowing score!"
+    ]
   },
   {"tag": "your_thoughts",
    "patterns": ["what think about", "what your thoughts"],
@@ -115,5 +232,90 @@
   {"tag": "insult",
   "patterns": ["you are dumb", "shut up","idiot"],
   "responses": ["well that hurts :("]
+  },
+  {
+    "tag": "weather",
+    "patterns": [
+      "what's the weather like ?",
+      "tell me the weather today",
+      "is it going to rain ?",
+      "how's the weather outside ?",
+      "what's the temperature ?"
+    ],
+    "responses": [
+      "i’d love to help, but i can't check the weather right now. you might want to use a weather app!",
+      "unfortunately, i can't check live weather, but it looks sunny from here! ",
+      "why not check a weather app? i’m better with music recommendations!",
+      "i can’t check the weather, but i hope it’s good wherever you are!",
+      "not sure about the weather, but i can definitely brighten your mood with some good music!"
+    ]
+  },
+  {
+    "tag": "time",
+    "patterns": [
+      "what time is it ?",
+      "tell me the time",
+      "do you know what time it is ?",
+      "can you tell me the current time ?",
+      "what's the time now ?"
+    ],
+    "responses": [
+      "i don't have a clock right now, but there are plenty of apps for that!",
+      "i'm not equipped to tell time at the moment, but let’s make the most of it with some tunes!",
+      "i’m not sure of the exact time, but it’s always a good time for music!",
+      "time’s flying by, isn’t it? i can’t tell the time exactly, though.",
+      "i can’t give you the time, but i can give you a good song recommendation!"
+    ]
+  },
+  {
+    "tag": "facts",
+    "patterns": [
+      "tell me a fact",
+      "can you tell me a random fact ?",
+      "i want to hear a fun fact",
+      "give me an interesting fact",
+      "do you know any cool facts ?"
+    ],
+    "responses": [
+      "did you know? honey never spoils. archaeologists have found pots of honey in ancient egyptian tombs that are over 3,000 years old and still edible!",
+      "here’s a fun one: octopuses have three hearts. two pump blood to the gills, while one pumps it to the rest of the body!",
+      "a cool fact: bananas are berries, but strawberries aren’t! ",
+      "did you know that a day on venus is longer than a year on venus? ",
+      "here’s something fun: a single strand of spider silk is five times stronger than steel of the same diameter."
+    ]
+  },
+  {
+    "tag": "hobbies",
+    "patterns": [
+      "what are your hobbies ?",
+      "do you have any hobbies ?",
+      "what do you do for fun ?",
+      "what do you like to do in your free time ?",
+      "do you enjoy anything besides music ?"
+    ],
+    "responses": [
+      "well, i love recommending music! it’s my passion! ",
+      "besides helping you find great songs? i enjoy learning new things!",
+      "i don't have free time exactly, but i love answering questions and making your day better!",
+      "finding the perfect song for your mood is my hobby. what about you?",
+      "if i could have a hobby, i’d probably enjoy listening to all kinds of music all day long!"
+    ]
+  },
+  {
+    "tag": "compliments",
+    "patterns": [
+      "you're amazing",
+      "i love this bot",
+      "you're the best",
+      "you're awesome",
+      "this is a great bot"
+    ],
+    "responses": [
+      "thanks! you're awesome too!",
+      "aww, thanks! i’m happy to help!",
+      "you just made my day! ",
+      "thanks! i’m glad i could make your experience better!",
+      "you're the best for saying that! thanks!"
+    ]
   }
 ]}

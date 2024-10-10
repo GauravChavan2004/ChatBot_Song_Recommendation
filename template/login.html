@@ -25,7 +25,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-image: url('/static/images/login_page_bg.jpg');
+      background-image: url('/static/images/japan-background-digital-art.jpg');
       background-size: cover; /* Ensure the background covers the whole page */
       background-position: center;
       background-repeat: no-repeat;
@@ -154,6 +154,16 @@
     }
     .button input:hover {
       background-color: #265df2;
+    }
+    @media only screen and (max-width: 450px) {
+      .container {
+        max-width: 95%;
+      }
+    }
+    @media (min-width: 450px) and (max-width: 786px) {
+      .container {
+        max-width: 50%;
+      }
     }
   </style>
   <body>

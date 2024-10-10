@@ -25,7 +25,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-image: url('/static/images/login_page_bg-modified.jpg');
+      background-image: url('/static/images/japan-background-digital-art-modified.jpg');
       background-size: cover; /* Ensure the background covers the whole page */
       background-position: center;
       background-repeat: no-repeat;
@@ -117,10 +117,11 @@
     .container {
       width: 50%;
       margin-top: 50px;
-      height: 610px;
+      height: 603px;
       overflow-y: auto;
       scroll-behavior: smooth;
-      color: #bab8b8;
+      color: #ffffff;
+      font-family: 'Courier New', monospace;
     }
     .container::-webkit-scrollbar {
       display: none;
@@ -178,6 +179,11 @@
     @media (min-width: 450px) and (max-width: 786px) {
       .container {
         width: 65%;
+        margin-top: 50px;
+        height: 514px;
+      }
+      body {
+        background-image: url('/static/images/bg_image1.jpg');
       }
     }
   </style>
