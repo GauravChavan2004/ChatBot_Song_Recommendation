@@ -1,0 +1,169 @@
+body {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('static/images/japan-background-digital-art-modified.jpg');
+    background-size: cover; /* Ensure the background covers the whole page */
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  #User_Input {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  #textInput {
+    width: 50%;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: #ffffff00;
+    font-size: 16px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 15px rgba(255, 255, 255, 0.245);
+  }
+  #textInput:focus {
+    background-color: #ffffff00;
+    box-shadow: 0 0 8px hsla(213, 5%, 66%, 0.677);
+    outline: none;
+  }
+  #Submit_btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    background-color: #ffffff00;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 15px rgba(255, 255, 255, 0.245);
+  }
+
+  #Submit_btn:hover {
+    background-color: #ffffff00;
+    transform: translateY(-2px);
+    box-shadow: 0 0 8px hsla(213, 5%, 66%, 0.677);
+  }
+
+  #Submit_btn:active {
+    background-color: #ffffff00;
+    transform: translateY(0);
+  }
+
+  #Submit_btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px hsla(213, 5%, 66%, 0.677);
+  }
+  #redirectToSpotify {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    background-color: #ffffff00;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 15px rgba(255, 255, 255, 0.245);
+  }
+
+  #redirectToSpotify:hover {
+    background-color: #ffffff00;
+    transform: translateY(-2px);
+    box-shadow: 0 0 8px hsla(213, 5%, 66%, 0.677);
+  }
+
+  #redirectToSpotify:active {
+    background-color: #ffffff00;
+    transform: translateY(0);
+  }
+
+  #redirectToSpotify:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px hsla(213, 5%, 66%, 0.677);
+  }
+  .userText {
+    text-align: right;
+  }
+  #BotInput {
+    text-align: left;
+  }
+  .container {
+    width: 50%;
+    margin-top: 50px;
+    height: 603px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+  }
+  .container::-webkit-scrollbar {
+    display: none;
+  }
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background-color: #ffffff00;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(250, 250, 250, 0.23);
+    overflow: hidden;
+    margin: 0 20px;
+    
+  }
+  .modal-content button {
+    padding: 10px 20px;
+    background-color: #4070f48e;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .modal-content button:hover {
+    background-color: #4070f4dc;
+    box-shadow: 0 0 8px hsla(210, 2%, 16%, 0.677);
+    outline: none;
+  }
+  @media only screen and (max-width: 450px) {
+    .container {
+      width: 95%;
+      height: 500px;
+      font-size: 12px;
+    }
+    #textInput {
+      width: 60%;
+      padding: 10px 20px;
+      font-size: 12px;
+    }
+    #Submit_btn {
+      font-size: 12px;
+      padding: 10px;
+    }
+    #redirectToSpotify {
+      font-size: 12px;
+    }
+  }
+  @media (min-width: 450px) and (max-width: 786px) {
+    .container {
+      width: 65%;
+      margin-top: 50px;
+      height: 514px;
+    }
+    body {
+      background-image: url('/static/images/bg_image1.jpg');
+    }
+  }
