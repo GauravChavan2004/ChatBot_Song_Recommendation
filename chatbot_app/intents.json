@@ -42,8 +42,8 @@
     "patterns": [
       "recommend a song",
       "suggest me a song",
-      "what song should i listen to?",
-      "can you give me a song ?",
+      "what song should i listen to",
+      "can you give me a song ",
       "i need a song recommendation"
     ],
     "responses": [
@@ -56,10 +56,10 @@
   {
     "tag": "help",
     "patterns": [
-      "what can you do ?",
-      "how can you help me ?",
-      "what features do you have ?",
-      "what can i ask you ?"
+      "what can you do ",
+      "how can you help me ",
+      "what features do you have ",
+      "what can i ask you "
     ],
     "responses": [
       "i can recommend songs based on mood, genre, or artist. just tell me what you're in the mood for!",
@@ -98,7 +98,7 @@
    "context_filter": "how_are_you"
   },
   {"tag": "doing_angry",
-   "patterns": ["i'm so angry right now !", "i can't believe this ! i'm furious !", "everything is going wrong and i'm really mad !", "i'm so pissed off.", "why does everything always suck ?!", "angry", "very angry"],
+   "patterns": ["i'm so angry right now ", "i can't believe this ! i'm furious !", "everything is going wrong and i'm really mad !", "i'm so pissed off.", "why does everything always suck ?!", "angry", "very angry"],
    "responses": ["i hear you, it sounds like you're having a tough time. music can sometimes help lighten the mood. how about a song to help you cool down?",
     "i’m sorry you're feeling this way. how about i find a calming or uplifting song for you? what kind of music usually helps you feel better?",
     "it sounds like you're really frustrated. music can be a great way to ease your mind. let me recommend a few tracks that might help you relax.",
@@ -109,12 +109,12 @@
   {
     "tag": "surprised_mood",
     "patterns": [
-      "wow !",
-      "that's surprising !",
-      "i can't believe it !",
-      "no way !",
-      "you're kidding !",
-      "i'm shocked !"
+      "wow ",
+      "that's surprising ",
+      "i can't believe it ",
+      "no way ",
+      "you're kidding ",
+      "i'm shocked "
     ],
     "responses": [
       "i know, right? that's pretty unexpected!",
@@ -173,11 +173,11 @@
   {
     "tag": "favorite_food",
     "patterns": [
-      "what's your favorite food ?",
-      "do you like to eat ?",
+      "what's your favorite food ",
+      "do you like to eat ",
       "tell me your favorite dish",
-      "what food do you like ?",
-      "do you have a favorite meal ?"
+      "what food do you like ",
+      "do you have a favorite meal "
     ],
     "responses": [
       "i don’t eat, but if i could, i bet i’d love pizza! ",
@@ -190,11 +190,11 @@
   {
     "tag": "emotions",
     "patterns": [
-      "how do you feel ?",
-      "are you happy ?",
-      "do you have feelings ?",
-      "do you get sad ?",
-      "can you feel emotions ?"
+      "how do you feel ",
+      "are you happy ",
+      "do you have feelings ",
+      "do you get sad ",
+      "can you feel emotions "
     ],
     "responses": [
       "i don’t feel emotions like humans do, but i’m always happy to help you!",
@@ -211,11 +211,11 @@
   {
     "tag": "favorite_movie",
     "patterns": [
-      "what's your favorite movie ?",
-      "do you have a favorite film ?",
+      "what's your favorite movie ",
+      "do you have a favorite film ",
       "tell me your favorite movie",
-      "do you watch movies ?",
-      "what movie do you like ?"
+      "do you watch movies ",
+      "what movie do you like "
     ],
     "responses": [
       "i don’t watch movies, but i think i’d like something with a great soundtrack!",
@@ -316,6 +316,21 @@
       "you just made my day! ",
       "thanks! i’m glad i could make your experience better!",
       "you're the best for saying that! thanks!"
+    ]
+  },
+  {
+    "tag": "song_feedback",
+    "patterns": [
+      "I love this song",
+      "This is great",
+      "This song is perfect for my mood.",
+      "I like this track."
+    ],
+    "responses": [
+      "Sorry about that! I'll try to improve the recommendations",
+      "Can you tell me what you'd prefer instead?",
+      "This song has been added to your favorites.",
+      "thanks for Compliment"
     ]
   }
 ]}
